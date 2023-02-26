@@ -1,25 +1,11 @@
-const express = require("express");
-require("./db/mongoose"); //Ensure mongoose is connected to the database
-
-//env_cmd npm packages for setting up environment
-
-const app = express();
+const app = require("./app");
+const PORT = process.env.PORT;
 
 // app.use((req, res, next) => {
 //   res
 //     .status(503)
 //     .send("Server is currently under maintenance. Please come back soon.");
 // });
-
-app.use(express.json());
-
-const PORT = process.env.PORT;
-
-const userRouter = require("./routers/user");
-const taskRouter = require("./routers/task");
-
-app.use(userRouter);
-app.use(taskRouter);
 
 // const bcrypt = require("bcryptjs");
 

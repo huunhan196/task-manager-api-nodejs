@@ -109,11 +109,11 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.pre("remove", async function (next) {
-  const user = this;
+// userSchema.pre("remove", async function (next) {
+//   const user = this;
 
-  await Task.deleteMany({ owner: user._id });
-});
+//   await Task.deleteMany({ owner: user._id });
+// });
 
 const User = mongoose.model("User", userSchema);
 

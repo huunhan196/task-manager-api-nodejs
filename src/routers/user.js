@@ -1,5 +1,6 @@
 const express = require("express"); // npm modules for server
 const User = require("../models/user");
+const Task = require("../models/task");
 const router = new express.Router();
 const auth = require("../middleware/auth");
 const multer = require("multer"); // npm modules for uploading images
@@ -171,14 +172,11 @@ router.patch("/users/me", auth, async (req, res) => {
 
 router.delete("/users/me", auth, async (req, res) => {
   try {
-    // const user = await User.findByIdAndDelete(req.user._id);
-
-    // if (!user) {
-    //   return res.status(404).send();
-    // }
-    await req.user.remove();
+    // remove() method is deprecated
+    const user = await User.findByIdAndDelete(req.user._id);
+    await Task.deleteMany({ owner: user._id });
     sendFarewellEmail(req.user.email, req.user.name);
-    res.send(req.user);
+    res.send(user);
   } catch (e) {
     res.status(500).send();
   }
